@@ -1,0 +1,4 @@
+path=$(printf '%s\n' "${PWD##*/}")
+command="docker exec ${path}_php_1 npm "$@""
+echo "Running npm on docker ${path}_php_1"
+$command
