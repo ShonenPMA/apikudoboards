@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class ProjectUser extends Model
 {
     use HasFactory;
 
@@ -14,15 +14,15 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function projectUsers()
+    public function project()
     {
-        return $this->hasMany(ProjectUser::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function scopeFilter($query, $filter)
     {
         return $query->when($filter != '', function($query) use ($filter){
-            return $query->where('name', "%{$filter}%");
+            return $query->whereRelation('user','name', "%{$filter}%");
         });
     }
 }

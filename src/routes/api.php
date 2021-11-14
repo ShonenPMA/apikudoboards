@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\ProjectUserController;
 use App\Http\Controllers\API\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +32,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
+
+    Route::prefix('projectUser')->group(function(){
+        Route::post( '/', [ProjectUserController::class, 'store'])->middleware('onlyOwnerProject');
+        Route::get('{project:id}', [ProjectUserController::class, 'indexFromProject'])->middleware('onlyOwnerProject');
+        Route::delete( '{projectUser:id}', [ProjectUserController::class, 'destroy']);
+    });
+    
     
     
     Route::get('team/indexFromAuthUser', [TeamController::class, 'indexFromAuthUser']);
-    Route::apiResource('team', TeamController::class)->except(['show','index']);
+    Route::apiResource('team', TeamController::class)->except(['show','index'])
+        ;
 });

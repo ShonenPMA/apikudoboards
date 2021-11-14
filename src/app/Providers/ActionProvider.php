@@ -9,6 +9,8 @@ use App\Actions\Auth\RegisterAction;
 use App\Actions\Project\CreateAction;
 use App\Actions\Project\DeleteAction;
 use App\Actions\Project\UpdateAction;
+use App\Actions\ProjectUser\CreateAction as ProjectUserCreateAction;
+use App\Actions\ProjectUser\DeleteAction as ProjectUserDeleteAction;
 use App\Actions\Team\CreateAction as TeamCreateAction;
 use App\Actions\Team\DeleteAction as TeamDeleteAction;
 use App\Actions\Team\UpdateAction as TeamUpdateAction;
@@ -19,6 +21,8 @@ use App\Contracts\Auth\RegisterContract;
 use App\Contracts\Project\CreateContract;
 use App\Contracts\Project\DeleteContract;
 use App\Contracts\Project\UpdateContract;
+use App\Contracts\ProjectUser\CreateContract as ProjectUserCreateContract;
+use App\Contracts\ProjectUser\DeleteContract as ProjectUserDeleteContract;
 use App\Contracts\Team\CreateContract as TeamCreateContract;
 use App\Contracts\Team\DeleteContract as TeamDeleteContract;
 use App\Contracts\Team\UpdateContract as TeamUpdateContract;
@@ -48,6 +52,10 @@ class ActionProvider extends ServiceProvider
         $this->app->bind(TeamCreateContract::class, TeamCreateAction::class);
         $this->app->bind(TeamUpdateContract::class, TeamUpdateAction::class);
         $this->app->bind(TeamDeleteContract::class, TeamDeleteAction::class);
+
+        //ProjectUSer
+        $this->app->bind(ProjectUserCreateContract::class, ProjectUserCreateAction::class);
+        $this->app->bind(ProjectUserDeleteContract::class, ProjectUserDeleteAction::class);
     }
 
     /**
