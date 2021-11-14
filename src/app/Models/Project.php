@@ -17,7 +17,7 @@ class Project extends Model
     public function scopeFilter($query, $filter)
     {
         return $query->when($filter != '', function($query) use ($filter){
-            return $query->where('name', '%name%');
+            return $query->where('name', "%{$filter}%");
         });
     }
 }
