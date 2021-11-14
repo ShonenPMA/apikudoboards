@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\Team\CreateContract;
+use App\Contracts\Team\DeleteContract;
 use App\Contracts\Team\UpdateContract;
 use App\Dtos\Team\CreateDto;
 use App\Dtos\Team\UpdateDto;
@@ -55,13 +56,14 @@ class TeamController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified team.
      *
      * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param \App\Contracts\Team\DeleteContract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
-    // public function destroy(Team $team)
-    // {
-    //     //
-    // }
+    public function destroy(Team $team, DeleteContract $contract) : JsonResponse
+    {
+        return $contract->execute($team);
+    }
 }

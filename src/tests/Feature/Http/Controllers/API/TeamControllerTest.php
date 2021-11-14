@@ -55,4 +55,15 @@ class TeamControllerTest extends TestCase
         ]);
     }
 
+    public function test_can_delete_team()
+    {
+        $team = Team::factory()->create();
+        
+        $response = $this->json('DELETE', self::PATH . "/{$team->id}");
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseMissing('teams', [
+            'name' => $team->name
+        ]);
+    }
 }
