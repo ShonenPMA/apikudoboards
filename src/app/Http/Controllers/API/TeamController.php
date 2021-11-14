@@ -23,7 +23,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class TeamController extends Controller
 {
     /**
-     * Display a listing of teams from authenticated user.
+     * Display a list of teams from authenticated user.
      * @responseFile responses/team/indexFromAuthUser.json
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
