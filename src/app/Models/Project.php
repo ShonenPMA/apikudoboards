@@ -26,8 +26,8 @@ class Project extends Model
         });
     }
 
-    public function kudoboards()
+    public function kudoboard()
     {
-        return $this->morphMany(Kudoboards::class, 'kudoable');
+        return $this->morphOne(Kudoboards::class, 'kudoable');
     }
 }

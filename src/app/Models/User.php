@@ -66,4 +66,23 @@ class User extends Authenticatable
     {
         return $this->morphMany(Kudoboards::class, 'kudoable');
     }
-}
+
+    public function getAllKudoboardsAttribute()
+    {
+        $own_kudoboards = $this->kudoboards;
+
+        $project_kudoboards =$this->projects->map(function($project){
+            return $project->kudoboard;
+        });
+
+        $team_kudoboards = $this->teams->map(function($project){
+            return $project->kudoboard;
+        });
+
+        $total_kudoboards = $own_kudoboards
+            ->merge($project_kudoboards)
+            ->merge($team_kudoboards);
+        
+        return $total_kudoboards;
+    }
+ }
