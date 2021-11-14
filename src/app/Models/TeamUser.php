@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class TeamUser extends Model
 {
     use HasFactory;
 
@@ -14,15 +14,15 @@ class Team extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function teamUsers()
+    public function team()
     {
-        return $this->hasMany(TeamUser::class);
+        return $this->belongsTo(Team::class);
     }
 
     public function scopeFilter($query, $filter)
     {
         return $query->when($filter != '', function($query) use ($filter){
-            return $query->where('name', "%{$filter}%");
+            return $query->whereRelation('user','name', "%{$filter}%");
         });
     }
 }

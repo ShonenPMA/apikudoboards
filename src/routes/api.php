@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ProjectUserController;
 use App\Http\Controllers\API\TeamController;
+use App\Http\Controllers\API\TeamUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post( '/', [ProjectUserController::class, 'store'])->middleware('onlyOwnerProject');
         Route::get('{project:id}', [ProjectUserController::class, 'indexFromProject'])->middleware('onlyOwnerProject');
         Route::delete( '{projectUser:id}', [ProjectUserController::class, 'destroy']);
+    });
+
+    Route::prefix('teamUser')->group(function(){
+        Route::post( '/', [TeamUserController::class, 'store'])->middleware('onlyOwnerTeam');
+        Route::get('{team:id}', [TeamUserController::class, 'indexFromTeam'])->middleware('onlyOwnerTeam');
+        Route::delete( '{teamUser:id}', [TeamUserController::class, 'destroy']);
     });
     
     

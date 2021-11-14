@@ -31,4 +31,9 @@ class UserTest extends TestCase
     {
         $this->assertInstanceOf(Collection::class, $this->user->projectUsers);
     }
+
+    public function test_user_has_many_team_users()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->teamUsers);
+    }
 }
