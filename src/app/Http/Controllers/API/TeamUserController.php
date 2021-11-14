@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\TeamUser\CreateContract;
+use App\Contracts\TeamUser\DeleteContract;
 use App\Dtos\TeamUser\CreateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamUser\CreateRequest;
@@ -39,13 +40,14 @@ class TeamUserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * Remove the specified team user.
+     * @responseFile responses/teamUser/destroy.json
      * @param  \App\Models\TeamUser  $teamUser
-     * @return \Illuminate\Http\Response
+     * @param \App\Contracts\Team\DeleteContract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
-    // public function destroy(TeamUser $teamUser)
-    // {
-    //     //
-    // }
+    public function destroy(TeamUser $teamUser, DeleteContract $contract) : JsonResponse
+    {
+        return $contract->execute($teamUser);
+    }
 }

@@ -15,6 +15,7 @@ use App\Actions\Team\CreateAction as TeamCreateAction;
 use App\Actions\Team\DeleteAction as TeamDeleteAction;
 use App\Actions\Team\UpdateAction as TeamUpdateAction;
 use App\Actions\TeamUser\CreateAction as TeamUserCreateAction;
+use App\Actions\TeamUser\DeleteAction as TeamUserDeleteAction;
 use App\Contracts\Auth\EditProfileContract;
 use App\Contracts\Auth\LoginContract;
 use App\Contracts\Auth\LogoutContract;
@@ -28,6 +29,7 @@ use App\Contracts\Team\CreateContract as TeamCreateContract;
 use App\Contracts\Team\DeleteContract as TeamDeleteContract;
 use App\Contracts\Team\UpdateContract as TeamUpdateContract;
 use App\Contracts\TeamUser\CreateContract as TeamUserCreateContract;
+use App\Contracts\TeamUser\DeleteContract as TeamUserDeleteContract;
 use Illuminate\Support\ServiceProvider;
 
 class ActionProvider extends ServiceProvider
@@ -61,6 +63,7 @@ class ActionProvider extends ServiceProvider
 
         // TeamUser
         $this->app->bind(TeamUserCreateContract::class, TeamUserCreateAction::class);
+        $this->app->bind(TeamUserDeleteContract::class, TeamUserDeleteAction::class);
     }
 
     /**

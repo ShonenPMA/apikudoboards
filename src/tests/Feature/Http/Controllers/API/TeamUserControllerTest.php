@@ -72,5 +72,16 @@ class TeamUserControllerTest extends TestCase
         $this->expectException(TeamOwnerCanNotBeAMember::class);
         $this->json('POST', self::PATH, $data);
     }
+    public function test_can_delete_team_user()
+    {
+        $teamUser = TeamUser::factory()->create();
+        $this->withoutExceptionHandling();
+        $response = $this->json('DELETE', self::PATH . "/{$teamUser->id}");
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseMissing('team_users', [
+            'name' => $teamUser->name
+        ]);
+    }
 
 }

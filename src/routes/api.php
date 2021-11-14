@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('teamUser')->group(function(){
         Route::post( '/', [TeamUserController::class, 'store'])->middleware('onlyOwnerTeam');
+        Route::delete( '{teamUser:id}', [TeamUserController::class, 'destroy']);
     });
     
     
