@@ -14,6 +14,11 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function projectUsers()
+    {
+        return $this->hasMany(ProjectUser::class);
+    }
+
     public function scopeFilter($query, $filter)
     {
         return $query->when($filter != '', function($query) use ($filter){

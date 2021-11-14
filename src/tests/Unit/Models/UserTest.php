@@ -10,15 +10,25 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
     use RefreshDatabase;
+    private $user;
+    public function setUp() : void
+    {
+        parent::setUp();
+        $this->user = new User();
+    }
+
     public function test_user_has_many_projects()
     {
-        $user = new User();
-        $this->assertInstanceOf(Collection::class, $user->projects);
+        $this->assertInstanceOf(Collection::class, $this->user->projects);
     }
     
     public function test_user_has_many_teams()
     {
-        $user = new User();
-        $this->assertInstanceOf(Collection::class, $user->teams);
+        $this->assertInstanceOf(Collection::class, $this->user->teams);
+    }
+    
+    public function test_user_has_many_project_users()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->projectUsers);
     }
 }
