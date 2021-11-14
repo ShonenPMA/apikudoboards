@@ -116,4 +116,28 @@ class KudoControllerTest extends TestCase
 
     }
 
+    public function test_can_list_kudos_from_kudoboard()
+    {
+        $kudos = Kudo::factory(5)->create([
+            'user_sender_id' => $this->user->id,
+            'kudoboard_id' => 1
+        ]);
+
+        $response = $this->json('GET', self::PATH . "/indexFromKudoboard/1");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($kudos->count(), 'data');
+    }
+    public function test_can_list_kudos_from_kudoboard_only_if_belongs_to_auth_user()
+    {
+        $kudoboard = Kudoboards::factory()->create();
+        Kudo::factory(5)->create([
+            'user_sender_id' => $this->user->id,
+            'kudoboard_id' => $kudoboard->id
+        ]);
+        $this->withoutExceptionHandling();
+        $this->expectException(KudoboardException::class);
+        $this->json('GET', self::PATH . "/indexFromKudoboard/{$kudoboard->id}");
+
+    }
+
 }

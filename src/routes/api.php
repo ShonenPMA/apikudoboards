@@ -37,7 +37,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         
         Route::post('/', [KudoController::class, 'store'])
             ->middleware(['receiverCanNotBeSender', 'kudoboardShouldBelongSenderOrReceiver']);
-        
+            Route::get('indexFromKudoboard/{kudoboards:id}', [KudoController::class, 'indexFromKudoboard'])
+            ->middleware(['kudoboardShouldBelongAuthUser']);
         Route::match(['put','patch'],'{kudo:id}', [KudoController::class, 'update'])
             ->middleware(['onlySender']);
         Route::delete('{kudo:id}', [KudoController::class, 'destroy'])
@@ -46,6 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     
     Route::get('kudoboards', [KudoboardController::class, 'index']);
+    
 
     Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);

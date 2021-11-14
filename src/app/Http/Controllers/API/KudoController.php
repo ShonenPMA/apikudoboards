@@ -10,9 +10,12 @@ use App\Dtos\Kudo\UpdateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kudo\CreateRequest;
 use App\Http\Requests\Kudo\UpdateRequest;
+use App\Http\Resources\KudoResource;
 use App\Models\Kudo;
+use App\Models\Kudoboards;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * @group Kudo
@@ -21,14 +24,19 @@ use Illuminate\Http\Request;
 class KudoController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the kudos from a kudoboard.
+     * @responseFile responses/kudo/indexFromKudoboard.json
+     * @param \App\Models\Kudoboards $kudoboard
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function indexFromKudoboard(Kudoboards $kudoboards) : AnonymousResourceCollection
+    {
+        return  KudoResource::collection(
+            Kudo::where('kudoboard_id', $kudoboards->id)
+                ->orderBy('created_at', 'DESC')
+                ->get()
+        );
+    }
 
     /**
      * Store a new kudo.

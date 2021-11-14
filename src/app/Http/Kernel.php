@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'receiverCanNotBeSender' => \App\Http\Middleware\ReceiverCanNotBeSenderMiddleware::class,
         'kudoboardShouldBelongSenderOrReceiver' => \App\Http\Middleware\KudoboardShouldBelongSenderOrReceiver::class,
         'onlySender' => \App\Http\Middleware\OnlySenderMiddleware::class,
+        'kudoboardShouldBelongAuthUser' => \App\Http\Middleware\KudoboardShouldBelongAuthUser::class,
     ];
 }
