@@ -25,4 +25,9 @@ class Project extends Model
             return $query->where('name', "%{$filter}%");
         });
     }
+
+    public function kudoboards()
+    {
+        return $this->morphMany(Kudoboards::class, 'kudoable');
+    }
 }

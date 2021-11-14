@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(TeamUser::class);
     }
+
+    public function kudoboards()
+    {
+        return $this->morphMany(Kudoboards::class, 'kudoable');
+    }
 }
