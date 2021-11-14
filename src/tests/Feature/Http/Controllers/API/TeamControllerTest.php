@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\API;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -31,6 +32,22 @@ class TeamControllerTest extends TestCase
         ];
         
         $response = $this->json('POST', self::PATH, $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseHas('teams', [
+            'name' => $data['name']
+        ]);
+    }
+
+    public function test_can_update_team()
+    {
+        $team = Team::factory()->create();
+        $data = [
+            'name' => 'Akatsuki'
+        ];
+        
+        $this->withoutExceptionHandling();
+        $response = $this->json('PUT', self::PATH . "/{$team->id}", $data);
 
         $response->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseHas('teams', [
