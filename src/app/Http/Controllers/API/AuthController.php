@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Contracts\Auth\EditProfileContract;
 use App\Contracts\Auth\LoginContract;
 use App\Contracts\Auth\LogoutContract;
 use App\Contracts\Auth\RegisterContract;
+use App\Dtos\Auth\EditProfileDto;
 use App\Dtos\Auth\LoginDto;
 use App\Dtos\Auth\RegisterDto;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\EditProfileRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
@@ -51,5 +54,17 @@ class AuthController extends Controller
     public function logout(LogoutContract $contract) : JsonResponse
     {
         return $contract->execute();
+    }
+
+    /**
+     * Edit user profile
+     * @responseFile responses/auth/editProfile.json
+     * @param \App\Http\Requests\Auth\EditProfileRequest $request
+     * @param \App\Contracts\Auth\EditProfileContract $contract
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editProfile(EditProfileRequest $request, EditProfileContract $contract) : JsonResponse
+    {
+        return $contract->execute(EditProfileDto::fromRequest($request));
     }
 }

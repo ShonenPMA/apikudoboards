@@ -87,4 +87,63 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
     }
+
+    public function test_can_udpate_user_profile()
+    {        
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $data = [
+            'name' => 'shonen',
+            'email' => 'shonen@example.test',
+            'birth_date' => '1990-01-01',
+            'password' => '123456Aa*',
+            'password_confirmation' => '123456Aa*'
+        ];
+        $this->withoutExceptionHandling();
+        $response = $this->json('POST', self::AUTH_PATH . "/editProfile", $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+
+    }
+    public function test_get_logout_true_when_change_password()
+    {        
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $data = [
+            'name' => 'shonen',
+            'email' => 'shonen@example.test',
+            'birth_date' => '1990-01-01',
+            'password' => '123456Aa*',
+            'password_confirmation' => '123456Aa*'
+        ];
+        $this->withoutExceptionHandling();
+        $response = $this->json('POST', self::AUTH_PATH . "/editProfile", $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonFragment([
+            'logout' => true
+        ]);
+
+    }
+    public function test_get_logout_false_when_not_change_password()
+    {        
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $data = [
+            'name' => 'shonen',
+            'email' => 'shonen@example.test',
+            'birth_date' => '1990-01-01'
+        ];
+        $this->withoutExceptionHandling();
+        $response = $this->json('POST', self::AUTH_PATH . "/editProfile", $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonFragment([
+            'logout' => false
+        ]);
+
+    }
 }
