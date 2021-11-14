@@ -52,4 +52,17 @@ class ProjectControllerTest extends TestCase
             'name' => $data['name']
         ]);
     }
+
+    public function test_can_delete_project()
+    {
+        $project = Project::factory()->create();
+        
+        $this->withoutExceptionHandling();
+        $response = $this->json('DELETE', self::PATH . "/{$project->id}")->dump();
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseMissing('projects', [
+            'name' => $project->name
+        ]);
+    }
 }

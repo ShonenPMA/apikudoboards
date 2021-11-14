@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\Project\CreateContract;
+use App\Contracts\Project\DeleteContract;
 use App\Contracts\Project\UpdateContract;
 use App\Dtos\Project\CreateDto;
 use App\Dtos\Project\UpdateDto;
@@ -55,13 +56,14 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified project.
      *
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param \App\Contracts\Project\DeleteContract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
-    // public function destroy(Project $project)
-    // {
-    //     //
-    // }
+    public function destroy(Project $project, DeleteContract $contract) : JsonResponse
+    {
+        return $contract->execute($project);
+    }
 }
