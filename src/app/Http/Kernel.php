@@ -65,5 +65,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'onlyOwnerProject' => \App\Http\Middleware\OnlyOwnerProjectMiddleware::class,
         'onlyOwnerTeam' => \App\Http\Middleware\OnlyOwnerTeamMiddleware::class,
+        'receiverCanNotBeSender' => \App\Http\Middleware\ReceiverCanNotBeSenderMiddleware::class,
+        'kudoboardShouldBelongSenderOrReceiver' => \App\Http\Middleware\KudoboardShouldBelongSenderOrReceiver::class,
+        'onlySender' => \App\Http\Middleware\OnlySenderMiddleware::class,
+        'kudoboardShouldBelongAuthUser' => \App\Http\Middleware\KudoboardShouldBelongAuthUser::class,
     ];
 }

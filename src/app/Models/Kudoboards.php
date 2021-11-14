@@ -13,4 +13,9 @@ class Kudoboards extends Model
     {
         return $this->morphTo();
     }
+
+    public function kudos()
+    {
+        return $this->hasMany(Kudo::class, 'kudoboard_id');
+    }
 }

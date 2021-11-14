@@ -36,4 +36,19 @@ class UserTest extends TestCase
     {
         $this->assertInstanceOf(Collection::class, $this->user->teamUsers);
     }
+
+    public function test_user_has_many_kudoboards()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->kudoboards);
+    }
+
+    public function test_user_has_many_created_kudos()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->createdKudos);
+    }
+
+    public function test_user_has_many_received_kudos()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->receivedKudos);
+    }
 }
