@@ -83,5 +83,27 @@ class TeamUserControllerTest extends TestCase
             'name' => $teamUser->name
         ]);
     }
+    public function test_can_list_teams_users_from_a_team()
+    {
+        $team_users = TeamUser::factory()->create([
+            'team_id' => $this->team->id
+        ]);
+
+        $response = $this->json('GET', self::PATH . "/{$this->team->id}");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($team_users->count(), 'data');
+    }
+    public function test_can__not_list_teams_users_from_a_team_if_auth_user_is_not_owner()
+    {
+        $other_team = Team::factory()->create();
+        TeamUser::factory()->create([
+            'team_id' => $other_team->id
+        ]);
+
+        $this->withoutExceptionHandling();
+        $this->expectException(ShouldBeTheTeamOwner::class);
+        $this->json('GET', self::PATH . "/{$other_team->id}");
+
+    }
 
 }
