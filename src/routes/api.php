@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
+    
+    
+    Route::get('team/indexFromAuthUser', [TeamController::class, 'indexFromAuthUser']);
+    Route::apiResource('team', TeamController::class)->except(['show','index']);
 });
