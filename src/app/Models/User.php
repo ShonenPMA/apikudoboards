@@ -67,6 +67,18 @@ class User extends Authenticatable
         return $this->morphMany(Kudoboards::class, 'kudoable');
     }
 
+    public function createdKudos()
+    {
+        return $this->hasMany(Kudo::class,'user_sender_id');
+    }
+
+    public function receivedKudos()
+    {
+        return $this->hasMany(Kudo::class, 'user_receiver_id');
+    }
+
+
+
     public function getAllKudoboardsAttribute()
     {
         $own_kudoboards = $this->kudoboards;

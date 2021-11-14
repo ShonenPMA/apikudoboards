@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Kudo\KudoboardException;
+use App\Exceptions\Kudo\ReceiverException;
 use App\Exceptions\ProjectUser\ProjectOwnerCanNotBeAMember;
 use App\Exceptions\ProjectUser\ShouldBeTheProjectOwner;
 use Illuminate\Auth\AuthenticationException;
@@ -64,7 +66,9 @@ class Handler extends ExceptionHandler
         if (
             $exception instanceof AuthenticationException ||
             $exception instanceof ProjectOwnerCanNotBeAMember ||
-            $exception instanceof ShouldBeTheProjectOwner 
+            $exception instanceof ShouldBeTheProjectOwner ||
+            $exception instanceof ReceiverException ||
+            $exception instanceof KudoboardException 
             ) {
             return response()->json([
                 'message' => 'Token Error',

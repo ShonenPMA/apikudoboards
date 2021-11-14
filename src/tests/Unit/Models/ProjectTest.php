@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Kudoboards;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,5 +27,10 @@ class ProjectTest extends TestCase
     public function test_project_has_many_project_users()
     {
         $this->assertInstanceOf(Collection::class, $this->project->projectUsers);
+    }
+
+    public function test_project_has_one_kudoboard()
+    {
+        $this->assertInstanceOf(Kudoboards::class, $this->project->kudoboard);
     }
 }

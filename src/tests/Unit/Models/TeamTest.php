@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Kudoboards;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,5 +27,10 @@ class TeamTest extends TestCase
     public function test_team_has_many_team_users()
     {
         $this->assertInstanceOf(Collection::class, $this->team->teamUsers);
+    }
+
+    public function test_team_has_one_kudoboard()
+    {
+        $this->assertInstanceOf(Kudoboards::class, $this->team->kudoboard);
     }
 }
