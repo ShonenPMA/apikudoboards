@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -74,5 +75,16 @@ class AuthControllerTest extends TestCase
         $this->expectException(BadCredentials::class);
         $this->json('POST', self::AUTH_PATH . "/login", $data);
 
+    }
+
+    public function test_can_logout_user()
+    {        
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+
+        $response = $this->json('POST', self::AUTH_PATH . "/logout");
+
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

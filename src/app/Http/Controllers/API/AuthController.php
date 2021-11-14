@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\Auth\LoginContract;
+use App\Contracts\Auth\LogoutContract;
 use App\Contracts\Auth\RegisterContract;
 use App\Dtos\Auth\LoginDto;
 use App\Dtos\Auth\RegisterDto;
@@ -38,5 +39,17 @@ class AuthController extends Controller
     public function login(LoginRequest $request, LoginContract $contract) : JsonResponse
     {
         return $contract->execute(LoginDto::fromRequest($request));
+    }
+
+    /**
+     * Logout user
+     * @authenticated
+     * @responseFile responses/auth/logout.json
+     * @param \App\Contracts\Auth\LogoutContract $contract
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout(LogoutContract $contract) : JsonResponse
+    {
+        return $contract->execute();
     }
 }
