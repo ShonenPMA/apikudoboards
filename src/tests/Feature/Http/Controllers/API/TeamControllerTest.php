@@ -66,4 +66,16 @@ class TeamControllerTest extends TestCase
             'name' => $team->name
         ]);
     }
+
+    public function test_can_list_teams_from_auth_user()
+    {
+        $teams = Team::factory()->create([
+            'user_id' => $this->user->id
+        ]);
+
+        $this->withoutExceptionHandling();
+        $response = $this->json('GET', self::PATH . "/indexFromAuthUser");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($teams->count(), 'data');
+    }
 }

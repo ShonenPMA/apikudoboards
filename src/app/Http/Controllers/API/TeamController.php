@@ -10,9 +10,11 @@ use App\Dtos\Team\UpdateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\CreateRequest;
 use App\Http\Requests\Team\UpdateRequest;
+use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * @group Team
@@ -21,14 +23,20 @@ use Illuminate\Http\Request;
 class TeamController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of teams from authenticated user.
+     * @responseFile responses/team/indexFromAuthUser.json
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function indexFromAuthUser() : AnonymousResourceCollection
+    {
+        return TeamResource::collection( 
+            Team::where('user_id', request()->user()->id)
+                ->filter(request()->get('filter', ''))
+                ->orderBy('name', 'ASC')
+                ->paginate(request()->get('per_page', 15)) 
+        );
+    }
 
     /**
      * Store a new team.

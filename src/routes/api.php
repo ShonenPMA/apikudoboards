@@ -33,5 +33,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
     
     
+    Route::get('team/indexFromAuthUser', [TeamController::class, 'indexFromAuthUser']);
     Route::apiResource('team', TeamController::class)->except(['show','index']);
 });
