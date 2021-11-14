@@ -20,7 +20,7 @@ class OnlySenderMiddleware
     {
         if($request->route('kudo') != null)
         {
-            $kudo = $request->route('kudo')->id ? $request->route('kudo') : Kudo::find($request->route('kudo'));
+            $kudo = gettype($request->route('kudo')) == 'object' ? $request->route('kudo') : Kudo::find($request->route('kudo'));
             if((request()->user()->id != $kudo->user_sender_id ))
             {
                 throw new OnlySender('Only sender can do this action');

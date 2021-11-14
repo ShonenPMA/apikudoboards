@@ -40,7 +40,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         
         Route::match(['put','patch'],'{kudo:id}', [KudoController::class, 'update'])
             ->middleware(['onlySender']);
-
+        Route::delete('{kudo:id}', [KudoController::class, 'destroy'])
+            ->middleware(['onlySender']);
 
     });
     

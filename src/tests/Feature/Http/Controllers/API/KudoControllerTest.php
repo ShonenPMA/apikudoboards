@@ -86,7 +86,7 @@ class KudoControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
     }
-    public function test_can_update_kudo_only_the_sender()
+    public function test_can_update_kudo_only_by_the_sender()
     {
         $kudo = Kudo::factory()->create();
         $data = [
@@ -95,6 +95,24 @@ class KudoControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $this->expectException(OnlySender::class);
         $this->json('PUT', self::PATH . "/{$kudo->id}", $data);
+
+    }
+
+    public function test_can_delete_kudo()
+    {
+        $kudo = Kudo::factory()->create([
+            'user_sender_id' => $this->user->id
+        ]);
+        $response = $this->json('DELETE', self::PATH . "/{$kudo->id}");
+
+        $response->assertStatus(Response::HTTP_OK);
+    }
+    public function test_can_delete_kudo_only_by_the_sender()
+    {
+        $kudo = Kudo::factory()->create();
+        $this->withoutExceptionHandling();
+        $this->expectException(OnlySender::class);
+        $this->json('DELETE', self::PATH . "/{$kudo->id}");
 
     }
 

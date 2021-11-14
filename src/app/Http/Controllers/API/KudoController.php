@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\Kudo\CreateContract;
+use App\Contracts\Kudo\DeleteContract;
 use App\Contracts\Kudo\UpdateContract;
 use App\Dtos\Kudo\CreateDto;
 use App\Dtos\Kudo\UpdateDto;
@@ -54,13 +55,14 @@ class KudoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * Remove the specified kudo.
+     * @responseFile responses/kudo/destroy.json
      * @param  \App\Models\Kudo  $kudo
-     * @return \Illuminate\Http\Response
+     * @param \App\Contracts\Kudo\DeleteContract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
-    // public function destroy(Kudo $kudo)
-    // {
-    //     //
-    // }
+    public function destroy(Kudo $kudo, DeleteContract $contract) : JsonResponse
+    {
+        return $contract->execute($kudo);
+    }
 }

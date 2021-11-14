@@ -7,6 +7,7 @@ use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LogoutAction;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Kudo\CreateAction as KudoCreateAction;
+use App\Actions\Kudo\DeleteAction as KudoDeleteAction;
 use App\Actions\Kudo\UpdateAction as KudoUpdateAction;
 use App\Actions\Project\CreateAction;
 use App\Actions\Project\DeleteAction;
@@ -23,6 +24,7 @@ use App\Contracts\Auth\LoginContract;
 use App\Contracts\Auth\LogoutContract;
 use App\Contracts\Auth\RegisterContract;
 use App\Contracts\Kudo\CreateContract as KudoCreateContract;
+use App\Contracts\Kudo\DeleteContract as KudoDeleteContract;
 use App\Contracts\Kudo\UpdateContract as KudoUpdateContract;
 use App\Contracts\Project\CreateContract;
 use App\Contracts\Project\DeleteContract;
@@ -72,6 +74,7 @@ class ActionProvider extends ServiceProvider
         //Kudo
         $this->app->bind(KudoCreateContract::class, KudoCreateAction::class);
         $this->app->bind(KudoUpdateContract::class, KudoUpdateAction::class);
+        $this->app->bind(KudoDeleteContract::class, KudoDeleteAction::class);
     }
 
     /**
