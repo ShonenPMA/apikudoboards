@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\API;
 
 use App\Exceptions\Kudo\KudoboardException;
+use App\Exceptions\Kudo\OnlySender;
 use App\Exceptions\Kudo\ReceiverException;
 use App\Models\Kudo;
 use App\Models\Kudoboards;
@@ -69,6 +70,32 @@ class KudoControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $this->expectException(KudoboardException::class);
         $this->json('POST', self::PATH, $data)->dump();
+    }
+
+
+    public function test_can_update_kudo()
+    {
+        $kudo = Kudo::factory()->create([
+            'user_sender_id' => $this->user->id
+        ]);
+        $data = [
+            'description' => 'Taka',
+        ];
+        
+        $response = $this->json('PUT', self::PATH . "/{$kudo->id}", $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+    }
+    public function test_can_update_kudo_only_the_sender()
+    {
+        $kudo = Kudo::factory()->create();
+        $data = [
+            'description' => 'Taka',
+        ];
+        $this->withoutExceptionHandling();
+        $this->expectException(OnlySender::class);
+        $this->json('PUT', self::PATH . "/{$kudo->id}", $data);
+
     }
 
 }

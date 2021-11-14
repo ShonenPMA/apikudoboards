@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Contracts\Kudo\CreateContract;
+use App\Contracts\Kudo\UpdateContract;
 use App\Dtos\Kudo\CreateDto;
+use App\Dtos\Kudo\UpdateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kudo\CreateRequest;
+use App\Http\Requests\Kudo\UpdateRequest;
 use App\Models\Kudo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,16 +41,17 @@ class KudoController extends Controller
         return $contract->execute(CreateDto::fromRequest($request), request()->user());
     }
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Update the specified kudo.
+     * @responseFile responses/kudo/update.json
+     * @param  \App\Http\Requests\Kudo\UpdateRequest  $request
      * @param  \App\Models\Kudo  $kudo
-     * @return \Illuminate\Http\Response
+     * @param  \App\Contracts\Kudo\UpdateContract $contract
+     * @return \Illuminate\Http\JsonResponse
      */
-    // public function update(Request $request, Kudo $kudo)
-    // {
-    //     //
-    // }
+    public function update(UpdateRequest $request, Kudo $kudo, UpdateContract $contract)
+    {
+        return $contract->execute(UpdateDto::fromRequest($request), $kudo);
+    }
 
     /**
      * Remove the specified resource from storage.

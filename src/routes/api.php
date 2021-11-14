@@ -34,8 +34,14 @@ Route::prefix('auth')->group(function(){
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('kudo')->group(function(){
+        
         Route::post('/', [KudoController::class, 'store'])
             ->middleware(['receiverCanNotBeSender', 'kudoboardShouldBelongSenderOrReceiver']);
+        
+        Route::match(['put','patch'],'{kudo:id}', [KudoController::class, 'update'])
+            ->middleware(['onlySender']);
+
+
     });
     
     Route::get('kudoboards', [KudoboardController::class, 'index']);
