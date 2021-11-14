@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\KudoboardController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ProjectUserController;
 use App\Http\Controllers\API\TeamController;
@@ -30,6 +31,8 @@ Route::prefix('auth')->group(function(){
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::get('kudoboards', [KudoboardController::class, 'index']);
 
     Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
