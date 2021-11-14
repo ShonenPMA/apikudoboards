@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('projectUser')->group(function(){
         Route::post( '/', [ProjectUserController::class, 'store'])->middleware('onlyOwnerProject');
+        Route::get('{project:id}', [ProjectUserController::class, 'indexFromProject'])->middleware('onlyOwnerProject');
         Route::delete( '{projectUser:id}', [ProjectUserController::class, 'destroy']);
     });
     

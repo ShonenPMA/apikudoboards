@@ -77,11 +77,34 @@ class ProjectUserControllerTest extends TestCase
     {
         $projectUser = ProjectUser::factory()->create();
         $this->withoutExceptionHandling();
-        $response = $this->json('DELETE', self::PATH . "/{$projectUser->id}")->dump();
+        $response = $this->json('DELETE', self::PATH . "/{$projectUser->id}");
 
         $response->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseMissing('project_users', [
             'name' => $projectUser->name
         ]);
+    }
+
+    public function test_can_list_projects_users_from_a_project()
+    {
+        $project_users = ProjectUser::factory()->create([
+            'project_id' => $this->project->id
+        ]);
+
+        $response = $this->json('GET', self::PATH . "/{$this->project->id}");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($project_users->count(), 'data');
+    }
+    public function test_can__not_list_projects_users_from_a_project_if_auth_user_is_not_owner()
+    {
+        $other_project = Project::factory()->create();
+        ProjectUser::factory()->create([
+            'project_id' => $other_project->id
+        ]);
+
+        $this->withoutExceptionHandling();
+        $this->expectException(ShouldBeTheProjectOwner::class);
+        $this->json('GET', self::PATH . "/{$other_project->id}");
+
     }
 }

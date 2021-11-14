@@ -18,4 +18,11 @@ class ProjectUser extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function scopeFilter($query, $filter)
+    {
+        return $query->when($filter != '', function($query) use ($filter){
+            return $query->whereRelation('user','name', "%{$filter}%");
+        });
+    }
 }

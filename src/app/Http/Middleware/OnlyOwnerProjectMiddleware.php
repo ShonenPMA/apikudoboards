@@ -22,12 +22,24 @@ class OnlyOwnerProjectMiddleware
         {
             throw new ProjectOwnerCanNotBeAMember('Project owner can not be a member');
         }
+        
 
-        if(request()->user()->projects()->where('id', $request->get('project_id'))->count() == 0)
+        if($request->route('project') != null)
+        {
+            $id = $request->route('project')->id ?? $request->route('project');
+            if(($request->route('project') != null && request()->user()->projects()->where('id', $id)->count() == 0))
+            {
+                throw new ShouldBeTheProjectOwner('You should be the project owner to register new members');
+            }
+        }
+
+        if(($request->get('project_id') != '' && request()->user()->projects()->where('id', $request->get('project_id'))->count() == 0)
+         )
         {
             throw new ShouldBeTheProjectOwner('You should be the project owner to register new members');
         }
-        
+
+
         return $next($request);
     }
 }
