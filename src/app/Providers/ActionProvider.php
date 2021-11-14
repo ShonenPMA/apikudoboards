@@ -7,11 +7,13 @@ use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LogoutAction;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Project\CreateAction;
+use App\Actions\Project\UpdateAction;
 use App\Contracts\Auth\EditProfileContract;
 use App\Contracts\Auth\LoginContract;
 use App\Contracts\Auth\LogoutContract;
 use App\Contracts\Auth\RegisterContract;
 use App\Contracts\Project\CreateContract;
+use App\Contracts\Project\UpdateContract;
 use Illuminate\Support\ServiceProvider;
 
 class ActionProvider extends ServiceProvider
@@ -31,6 +33,7 @@ class ActionProvider extends ServiceProvider
 
         //Project
         $this->app->bind(CreateContract::class, CreateAction::class);
+        $this->app->bind(UpdateContract::class, UpdateAction::class);
     }
 
     /**
