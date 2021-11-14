@@ -33,7 +33,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
 
-    Route::apiResource('projectUser', ProjectUserController::class)->except(['show','index'])->middleware('onlyOwnerProject');
+    Route::prefix('projectUser')->group(function(){
+        Route::post( '/', [ProjectUserController::class, 'store'])->middleware('onlyOwnerProject');
+        Route::delete( '{projectUser:id}', [ProjectUserController::class, 'destroy']);
+    });
+    
+    
     
     Route::get('team/indexFromAuthUser', [TeamController::class, 'indexFromAuthUser']);
     Route::apiResource('team', TeamController::class)->except(['show','index'])

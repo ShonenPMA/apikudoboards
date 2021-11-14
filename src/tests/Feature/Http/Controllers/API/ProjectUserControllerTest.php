@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\API;
 use App\Exceptions\ProjectUser\ProjectOwnerCanNotBeAMember;
 use App\Exceptions\ProjectUser\ShouldBeTheProjectOwner;
 use App\Models\Project;
+use App\Models\ProjectUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -70,5 +71,17 @@ class ProjectUserControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $this->expectException(ProjectOwnerCanNotBeAMember::class);
         $this->json('POST', self::PATH, $data);
+    }
+
+    public function test_can_delete_project_user()
+    {
+        $projectUser = ProjectUser::factory()->create();
+        $this->withoutExceptionHandling();
+        $response = $this->json('DELETE', self::PATH . "/{$projectUser->id}")->dump();
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseMissing('project_users', [
+            'name' => $projectUser->name
+        ]);
     }
 }
