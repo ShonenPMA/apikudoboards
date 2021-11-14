@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Contracts\Auth\LoginContract;
 use App\Contracts\Auth\RegisterContract;
+use App\Dtos\Auth\LoginDto;
 use App\Dtos\Auth\RegisterDto;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -23,5 +26,17 @@ class AuthController extends Controller
     public function register(RegisterRequest $request, RegisterContract $contract) : JsonResponse
     {
         return $contract->execute(RegisterDto::fromRequest($request));
+    }
+
+    /**
+     * Login user
+     * @responseFile responses/auth/login.json
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * @param \App\Contracts\Auth\LoginContract $contract
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(LoginRequest $request, LoginContract $contract) : JsonResponse
+    {
+        return $contract->execute(LoginDto::fromRequest($request));
     }
 }
