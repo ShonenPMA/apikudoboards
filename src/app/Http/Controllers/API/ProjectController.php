@@ -10,9 +10,11 @@ use App\Dtos\Project\UpdateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\CreateRequest;
 use App\Http\Requests\Project\UpdateRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * @group Project
@@ -21,14 +23,20 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the project from authenticated user.
+     * @responseFile responses/project/indexFromAuthUser.json
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function indexFromAuthUser() : AnonymousResourceCollection
+    {
+        return ProjectResource::collection( 
+            Project::where('user_id', request()->user()->id)
+                ->filter(request()->get('filter', ''))
+                ->orderBy('name', 'ASC')
+                ->paginate(request()->get('per_page', 15)) 
+        );
+    }
 
     /**
      * Store a new project.

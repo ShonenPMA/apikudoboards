@@ -14,13 +14,14 @@ class ProjectControllerTest extends TestCase
 {
     use RefreshDatabase;
     const PATH = 'api/project';
-
+    private $user;
     public function setUp() : void
     {
         parent::setUp();
 
+        $this->user =User::factory()->create();
         Sanctum::actingAs(
-            User::factory()->create()
+            $this->user
         );
     }
 
@@ -57,12 +58,23 @@ class ProjectControllerTest extends TestCase
     {
         $project = Project::factory()->create();
         
-        $this->withoutExceptionHandling();
-        $response = $this->json('DELETE', self::PATH . "/{$project->id}")->dump();
+        $response = $this->json('DELETE', self::PATH . "/{$project->id}");
 
         $response->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseMissing('projects', [
             'name' => $project->name
         ]);
+    }
+
+    public function test_can_list_projects_from_auth_user()
+    {
+        $projects = Project::factory()->create([
+            'user_id' => $this->user->id
+        ]);
+
+        $this->withoutExceptionHandling();
+        $response = $this->json('GET', self::PATH . "/indexFromAuthUser");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($projects->count(), 'data');
     }
 }

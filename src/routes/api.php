@@ -28,6 +28,6 @@ Route::prefix('auth')->group(function(){
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    Route::get('project/indexFromAuthUser', [ProjectController::class, 'indexFromAuthUser']);
     Route::apiResource('project', ProjectController::class)->except(['show','index']);
-
 });
