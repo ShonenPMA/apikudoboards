@@ -47,7 +47,8 @@ class LoginAction implements LoginContract
     {
         return response()->json([
             'data' => [
-                'token' => $this->token
+                'token' => $this->token,
+                'user' => new UserResource($this->user)
             ],
             'message' => 'User logged successfully'
         ], Response::HTTP_OK);
