@@ -18,7 +18,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'birth_date' => $this->birth_date
+            'birth_date' => $this->birth_date,
+            'personal_kudoboards' => KudoboardsResource::collection( $this->whenLoaded('kudoboards'))
         ];
     }
 }
