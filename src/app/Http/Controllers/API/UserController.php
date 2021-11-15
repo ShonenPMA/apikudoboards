@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         return UserResource::collection(
             User::where('id', '<>', request()->user()->id)
+            ->with(['kudoboards'])
             ->orderBy('name', 'ASC')
             ->get()
         );
