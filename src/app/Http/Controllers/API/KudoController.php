@@ -33,6 +33,7 @@ class KudoController extends Controller
     {
         return  KudoResource::collection(
             Kudo::where('kudoboard_id', $kudoboards->id)
+                ->with(['sender', 'receiver'])
                 ->orderBy('created_at', 'DESC')
                 ->get()
         );
