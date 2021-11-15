@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\EditProfileRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -66,5 +67,20 @@ class AuthController extends Controller
     public function editProfile(EditProfileRequest $request, EditProfileContract $contract) : JsonResponse
     {
         return $contract->execute(EditProfileDto::fromRequest($request));
+    }
+
+    /**
+     * Get auth user
+     * @authenticated
+     * @responseFile responses/auth/currentUser.json
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function currentUser() : JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'user' => new UserResource(request()->user())
+            ]
+        ]);
     }
 }

@@ -146,4 +146,13 @@ class AuthControllerTest extends TestCase
         ]);
 
     }
+    
+    public function test_can_retrieve_auth_user()
+    {
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+        $response = $this->json('GET', self::AUTH_PATH . "/currentUser");
+        $response->assertStatus(Response::HTTP_OK);
+    }
 }

@@ -1,0 +1,13 @@
+{
+    "data": {
+      "user": {
+        "name": "Mrs. Winnifred Schoen III",
+        "email": "ferry.talia@example.net",
+        "birth_date": {
+          "date": "1977-10-27 07:14:36.000000",
+          "timezone_type": 3,
+          "timezone": "America/Lima"
+        }
+      }
+    }
+}
