@@ -4,6 +4,7 @@ namespace App\Actions\Team;
 
 use App\Contracts\Team\UpdateContract;
 use App\Dtos\Team\UpdateDto;
+use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use Illuminate\Http\Response;
 
@@ -29,7 +30,8 @@ class UpdateAction implements UpdateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Team updated successfully'
+            'message' => 'Team updated successfully',
+            'data' => new TeamResource($this->team)
         ], Response::HTTP_OK);
     }
 }
