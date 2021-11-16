@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -24,6 +25,22 @@ class UserController extends Controller
         return UserResource::collection(
             User::where('id', '<>', request()->user()->id)
             ->with(['kudoboards'])
+            ->orderBy('name', 'ASC')
+            ->get()
+        );
+    }
+
+    /**
+     * List of users except the project specified
+     * @responseFile responses/user/indexFromProject.json
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function indexFromProject(Project $project) : AnonymousResourceCollection
+    {
+        return UserResource::collection(
+            User::where('id', '<>', request()->user()->id)
+            ->with(['projectUsers'])
+            ->whereRelation('projectUsers', 'project_id', $project->id)
             ->orderBy('name', 'ASC')
             ->get()
         );

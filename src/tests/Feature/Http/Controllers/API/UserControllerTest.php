@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\API;
 
+use App\Models\Project;
+use App\Models\ProjectUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -28,5 +30,17 @@ class UserControllerTest extends TestCase
         $response = $this->json('GET', self::PATH . "/indexExceptAuth");
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonCount($users->count(), 'data');
+    }
+
+    public function test_can_list_users_from_a_project()
+    {
+        $usersTotal = 5;
+        Project::factory()
+            ->has(ProjectUser::factory()->count($usersTotal))
+            ->create();
+        $this->withoutExceptionHandling();
+        $response = $this->json('GET', self::PATH . "/indexFromProject/1");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($usersTotal, 'data');
     }
 }
