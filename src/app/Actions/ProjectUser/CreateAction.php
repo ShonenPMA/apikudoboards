@@ -4,6 +4,7 @@ namespace App\Actions\ProjectUser;
 
 use App\Contracts\ProjectUser\CreateContract;
 use App\Dtos\ProjectUser\CreateDto;
+use App\Http\Resources\UserResource;
 use App\Models\ProjectUser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -31,7 +32,8 @@ class CreateAction implements CreateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Member registered successfully'
+            'message' => 'Member registered successfully',
+            'data' => new UserResource($this->projectUser->user)
         ], Response::HTTP_OK);
     }
 }

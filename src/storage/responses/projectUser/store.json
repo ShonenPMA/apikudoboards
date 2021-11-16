@@ -1,3 +1,10 @@
 {
-    "message": "Member registered successfully"
-}
+    "message": "Member registered successfully",
+    "data": {
+      "user_id": 2,
+      "project_id": 1,
+      "updated_at": "2021-11-16T04:43:09.000000Z",
+      "created_at": "2021-11-16T04:43:09.000000Z",
+      "id": 1
+    }
+  }
