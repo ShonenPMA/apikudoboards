@@ -1,10 +1,24 @@
 {
-    "message": "Member registered successfully",
-    "data": {
-      "user_id": 2,
-      "project_id": 1,
-      "updated_at": "2021-11-16T04:43:09.000000Z",
-      "created_at": "2021-11-16T04:43:09.000000Z",
-      "id": 1
-    }
+  "message": "Member registered successfully",
+  "data": {
+    "id": 1,
+    "user": {
+      "id": 2,
+      "name": "Freida Brown",
+      "birth_date": "1973-04-19 03:56:48",
+      "email": "sanford.odessa@example.org",
+      "email_verified_at": "2021-11-16T05:41:38.000000Z",
+      "created_at": "2021-11-16T05:41:38.000000Z",
+      "updated_at": "2021-11-16T05:41:38.000000Z"
+    },
+    "project": {
+      "id": 1,
+      "name": "Joesph Friesen DDS",
+      "user_id": "1",
+      "created_at": "2021-11-16T05:41:38.000000Z",
+      "updated_at": "2021-11-16T05:41:38.000000Z"
+    },
+    "updated_at": "2021-11-16T05:41:38.000000Z",
+    "created_at": "2021-11-16T05:41:38.000000Z"
   }
+}
