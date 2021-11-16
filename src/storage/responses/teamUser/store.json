@@ -1,3 +1,9 @@
 {
-    "message": "Member registered successfully"
-}
+    "message": "Member registered successfully",
+    "data": {
+      "id": 2,
+      "name": "Angelina Reichert",
+      "email": "shyanne04@example.net",
+      "birth_date": "1972-05-26 02:48:25"
+    }
+  }

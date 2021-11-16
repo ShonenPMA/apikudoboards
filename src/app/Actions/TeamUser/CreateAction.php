@@ -4,6 +4,7 @@ namespace App\Actions\TeamUser;
 
 use App\Contracts\TeamUser\CreateContract;
 use App\Dtos\TeamUser\CreateDto;
+use App\Http\Resources\UserResource;
 use App\Models\TeamUser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -31,7 +32,8 @@ class CreateAction implements CreateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Member registered successfully'
+            'message' => 'Member registered successfully',
+            'data' => new UserResource($this->teamUser->user)
         ], Response::HTTP_OK);
     }
 }
