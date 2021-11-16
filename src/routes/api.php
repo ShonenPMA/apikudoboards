@@ -72,4 +72,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('user/indexExceptAuth', [UserController::class, 'indexExceptAuth']);
     Route::get('user/indexFromProject/{project:id}', [UserController::class, 'indexFromProject']);
+    Route::get('user/indexFromTeam/{team:id}', [UserController::class, 'indexFromTeam']);
 });

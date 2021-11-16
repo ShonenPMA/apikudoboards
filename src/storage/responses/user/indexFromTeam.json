@@ -1,0 +1,35 @@
+{
+    "data": [
+      {
+        "id": 6,
+        "name": "Betsy Bednar",
+        "email": "jed48@example.com",
+        "birth_date": "1990-02-12 20:50:13"
+      },
+      {
+        "id": 7,
+        "name": "Felipa Thompson",
+        "email": "cletus.harris@example.com",
+        "birth_date": "1981-05-01 11:34:46"
+      },
+      {
+        "id": 5,
+        "name": "Miss Elyssa Lesch",
+        "email": "alison11@example.com",
+        "birth_date": "1979-12-16 16:44:46"
+      },
+      {
+        "id": 3,
+        "name": "Mr. Brain Farrell",
+        "email": "mhuel@example.org",
+        "birth_date": "1977-06-07 23:48:23"
+      },
+      {
+        "id": 4,
+        "name": "Trey Harber",
+        "email": "phills@example.net",
+        "birth_date": "2002-10-07 08:12:41"
+      }
+    ]
+  }
+  
