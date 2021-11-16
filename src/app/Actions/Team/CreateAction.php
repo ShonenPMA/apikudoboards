@@ -4,6 +4,7 @@ namespace App\Actions\Team;
 
 use App\Contracts\Team\CreateContract;
 use App\Dtos\Team\CreateDto;
+use App\Http\Resources\TeamResource;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -31,7 +32,8 @@ class CreateAction implements CreateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Team created successfully'
+            'message' => 'Team created successfully',
+            'data' => new TeamResource($this->team)
         ], Response::HTTP_OK);
     }
 }
