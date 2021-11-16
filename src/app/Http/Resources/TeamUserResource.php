@@ -14,6 +14,12 @@ class TeamUserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'user' => $this->user,
+            'team' => $this->team,
+            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at
+        ];
     }
 }
