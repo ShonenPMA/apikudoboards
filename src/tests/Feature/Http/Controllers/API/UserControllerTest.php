@@ -4,6 +4,8 @@ namespace Tests\Feature\Http\Controllers\API;
 
 use App\Models\Project;
 use App\Models\ProjectUser;
+use App\Models\Team;
+use App\Models\TeamUser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -40,6 +42,17 @@ class UserControllerTest extends TestCase
             ->create();
         $this->withoutExceptionHandling();
         $response = $this->json('GET', self::PATH . "/indexFromProject/1");
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonCount($usersTotal, 'data');
+    }
+
+    public function test_can_list_users_from_a_team()
+    {
+        $usersTotal = 5;
+        Team::factory()
+            ->has(TeamUser::factory()->count($usersTotal))
+            ->create();
+        $response = $this->json('GET', self::PATH . "/indexFromTeam/1");
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonCount($usersTotal, 'data');
     }
