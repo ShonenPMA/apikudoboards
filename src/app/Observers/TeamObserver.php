@@ -28,7 +28,10 @@ class TeamObserver
      */
     public function updated(Team $team)
     {
-        //
+        $kudoboard = $team->kudoboard;
+
+        $kudoboard->title = "Kudo Board for {$team->name} team";
+        $kudoboard->save();
     }
 
     /**
@@ -39,7 +42,7 @@ class TeamObserver
      */
     public function deleted(Team $team)
     {
-        //
+        $team->kudoboard->delete();
     }
 
     /**
