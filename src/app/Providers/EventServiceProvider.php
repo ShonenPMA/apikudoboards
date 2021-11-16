@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Project;
+use App\Models\ProjectUser;
 use App\Models\Team;
 use App\Models\User;
 use App\Observers\ProjectObserver;
+use App\Observers\ProjectUserObserver;
 use App\Observers\TeamObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Project::observe(ProjectObserver::class);
         Team::observe(TeamObserver::class);
+        ProjectUser::observe(ProjectUserObserver::class);
     }
 }
