@@ -28,7 +28,10 @@ class ProjectObserver
      */
     public function updated(Project $project)
     {
-        //
+        $kudoboard = $project->kudoboard;
+
+        $kudoboard->title = "Kudo Board for {$project->name} project";
+        $kudoboard->save();
     }
 
     /**
@@ -39,7 +42,7 @@ class ProjectObserver
      */
     public function deleted(Project $project)
     {
-        //
+        $project->kudoboard->delete();
     }
 
     /**
