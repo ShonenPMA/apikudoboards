@@ -4,6 +4,7 @@ namespace App\Actions\Project;
 
 use App\Contracts\Project\UpdateContract;
 use App\Dtos\Project\UpdateDto;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\Response;
 
@@ -29,7 +30,8 @@ class UpdateAction implements UpdateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Project updated successfully'
+            'message' => 'Project updated successfully',
+            'data' => new ProjectResource($this->project)
         ], Response::HTTP_OK);
     }
 }
