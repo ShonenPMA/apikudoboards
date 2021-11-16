@@ -32,7 +32,8 @@ class CreateAction implements CreateContract
     private function buildResponse()
     {
         return response()->json([
-            'message' => 'Project created successfully'
+            'message' => 'Project created successfully',
+            'data' => new ProjectResource($this->project)
         ], Response::HTTP_OK);
     }
 }
