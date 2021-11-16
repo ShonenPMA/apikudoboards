@@ -8,6 +8,7 @@ use App\Exceptions\Kudo\ReceiverException;
 use App\Exceptions\ProjectUser\ProjectOwnerCanNotBeAMember;
 use App\Exceptions\ProjectUser\ShouldBeTheProjectOwner;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -76,6 +77,14 @@ class Handler extends ExceptionHandler
                 'message' => 'Token Error',
                 'errors' => [$exception->getMessage()],
             ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if($exception instanceof ModelNotFoundException)
+        {
+            return response()->json([
+                'message' => 'No data found',
+                'errors' => ['No data yet'],
+            ],Response::HTTP_BAD_REQUEST);
         }
 
         return response()->json([
