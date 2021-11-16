@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Project;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -23,10 +24,15 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $userAuthId = request()->user() ? request()->user()->id : 0;
+        $projectId = gettype($this->route('project')) == 'object' ? $this->route('project')->id : $this->route('project');
         return [
             'name' => [
                 'required',
-                'string'
+                'string',
+                Rule::unique('projects','name')->where(function($query) use($userAuthId){
+                    return $query->where('user_id', $userAuthId);
+                })->ignore($projectId)
             ]
         ];
     }

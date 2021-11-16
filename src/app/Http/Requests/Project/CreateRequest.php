@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Project;
 
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -23,10 +25,14 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
+        $userAuthId = request()->user() ? request()->user()->id : 0;
         return [
             'name' => [
                 'required',
-                'string'
+                'string',
+                Rule::unique('projects','name')->where(function($query) use($userAuthId){
+                    return $query->where('user_id', $userAuthId);
+                })
             ]
         ];
     }
