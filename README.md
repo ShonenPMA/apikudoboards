@@ -2,7 +2,7 @@
 
 [Documentación en español](./README-es.md)
 
-Use WordPress locally with Docker using [Docker compose](https://docs.docker.com/compose/)
+Use Laravel locally with Docker using [Docker compose](https://docs.docker.com/compose/)
 
 ## Instructions
 

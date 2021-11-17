@@ -1,6 +1,6 @@
 # DOCKER LARAVEL PHPMYADMIN MYSQL NGINX
 
-Usa WordPress en tu servidor local con Docker usando [Docker compose](https://docs.docker.com/compose/)
+Usa Laravel en tu servidor local con Docker usando [Docker compose](https://docs.docker.com/compose/)
 
 ## Instrucciones
 
