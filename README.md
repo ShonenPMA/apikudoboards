@@ -2,6 +2,8 @@
 
 [Documentación en español](./README-es.md)
 
+[Read api docs](./src/README.md)
+
 Use Laravel locally with Docker using [Docker compose](https://docs.docker.com/compose/)
 
 ## Instructions

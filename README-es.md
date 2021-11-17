@@ -1,4 +1,5 @@
 # DOCKER LARAVEL PHPMYADMIN MYSQL NGINX
+[Leer la documentación de la api](./src/README-es.md)
 
 Usa Laravel en tu servidor local con Docker usando [Docker compose](https://docs.docker.com/compose/)
 

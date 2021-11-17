@@ -27,6 +27,9 @@
 
 > nano .env
 
+ - 4.1 Importante:
+   - Asignar `SANCTUM_STATEFUL_DOMAINS` y `SESSION_DOMAIN` con la URL de tu aplicación FRONTEND
+
 5. Generar la llave de la aplicación:
 
 > php artisan key:generate
