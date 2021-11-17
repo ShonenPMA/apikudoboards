@@ -27,6 +27,9 @@
 
 > nano .env
 
+ - 4.1 Important:
+   - Set `SANCTUM_STATEFUL_DOMAINS` and `SESSION_DOMAIN` with your FRONTEND APP ENDPOINT
+
 5. Generate key application:
 
 > php artisan key:generate
