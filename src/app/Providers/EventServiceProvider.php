@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Kudo;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\User;
+use App\Observers\KudoObserver;
 use App\Observers\ProjectObserver;
 use App\Observers\ProjectUserObserver;
 use App\Observers\TeamObserver;
@@ -42,5 +44,6 @@ class EventServiceProvider extends ServiceProvider
         Team::observe(TeamObserver::class);
         ProjectUser::observe(ProjectUserObserver::class);
         TeamUser::observe(TeamUserObserver::class);
+        Kudo::observe(KudoObserver::class);
     }
 }
