@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('hello', function($user){
     return $user != null;
 });
+
+Broadcast::channel('kudo.sent.{receiver}',function($user, $receiver){
+    return (int) $user->id === (int) $receiver;
+});
